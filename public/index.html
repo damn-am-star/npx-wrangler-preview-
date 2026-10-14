@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AUTONAMO v1.0 — Endpoints</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header>
+    <h1>AUTONAMO <small>v1.0</small> <span>— Endpoints</span></h1>
+    <span class="target">https://localhost:5002</span>
+  </header>
+  <form id="connect-form" class="connection">
+    <label for="spec-path">OpenAPI JSON path</label>
+    <input id="spec-path" value="/swagger/v1/swagger.json" required spellcheck="false">
+    <button id="connect" type="submit">Connect</button>
+  </form>
+  <p id="status" role="status">Not connected. Start your local HTTPS API, then click Connect.</p>
+  <main>
+    <section class="endpoint-pane" aria-label="Endpoints">
+      <div class="filters">
+        <span>Framework: <strong>OpenAPI</strong></span>
+        <label for="method-filter">Type:</label>
+        <select id="method-filter">
+          <option value="">All</option>
+          <option>GET</option><option>POST</option><option>PUT</option>
+          <option>PATCH</option><option>DELETE</option><option>HEAD</option>
+          <option>OPTIONS</option><option>TRACE</option>
+        </select>
+      </div>
+      <label class="search" for="search">
+        <span>Search</span>
+        <input id="search" type="search" placeholder="Filter endpoints…" autocomplete="off">
+      </label>
+      <h2>External <small id="endpoint-count">0 endpoints</small></h2>
+      <div id="endpoints"><p class="empty">Connect to load your API's endpoints.</p></div>
+    </section>
+    <section class="detail-pane" aria-label="Endpoint details">
+      <div class="tabs" role="tablist" aria-label="Endpoint view">
+        <button id="documentation-tab" role="tab" aria-selected="true" aria-controls="documentation" data-tab="documentation">Documentation</button>
+        <button id="client-tab" role="tab" aria-selected="false" aria-controls="client" data-tab="client" tabindex="-1">HTTP Client</button>
+        <button id="openapi-tab" role="tab" aria-selected="false" aria-controls="openapi" data-tab="openapi" tabindex="-1">OpenAPI</button>
+      </div>
+      <section id="documentation" class="panel" role="tabpanel" aria-labelledby="documentation-tab">
+        <h2 id="operation-title">Select an endpoint</h2>
+        <p id="operation-description">Documentation will appear here after connecting.</p>
+        <pre id="operation-doc"></pre>
+      </section>
+      <section id="client" class="panel" role="tabpanel" aria-labelledby="client-tab" hidden>
+        <form id="request-form">
+          <h2 id="request-title">Select an endpoint</h2>
+          <div id="parameters"></div>
+          <label for="request-body">Request body (JSON, when needed)</label>
+          <textarea id="request-body" rows="7" placeholder="{}" spellcheck="false"></textarea>
+          <p class="hint">Requests go only to https://localhost:5002. Sending may change data on your server.</p>
+          <button id="send" type="submit" disabled>Send request</button>
+        </form>
+        <h3>Response</h3>
+        <pre id="response" role="status">No request sent.</pre>
+      </section>
+      <section id="openapi" class="panel" role="tabpanel" aria-labelledby="openapi-tab" hidden>
+        <h2>OpenAPI definition</h2>
+        <pre id="specification">No specification loaded.</pre>
+      </section>
+    </section>
+  </main>
+</body>
+</html>
